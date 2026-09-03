@@ -1,2 +1,2 @@
 # CarDex
-A web app for collect cars.
+A PWA (Progressive Web App) for collecting cars spotted on the street or at meetups. Featuring a login system, each user maintains a personal collection: cars are added by uploading up to five personal photos and selecting the make, model, and version from a fixed catalog (comprising 30–40 recognizable classic models, pre-loaded via a one-time scraping script prior to delivery). Upon selecting a model, the app automatically displays its specifications (power, year, engine) from the catalog. Only one entry per distinct model is permitted in a user's collection (though higher-performance versions count as separate models), and a search function with filters allows users to browse their sightings by make, model, or date.
