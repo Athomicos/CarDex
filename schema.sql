@@ -7,7 +7,6 @@ CREATE TABLE coches (
     año_fin INTEGER,
     potencia_cv INTEGER,
     motor TEXT,
-    0_100 REAL,
     velocidad_maxima REAL,
     otros_specs TEXT
 );
@@ -16,7 +15,7 @@ CREATE TABLE usuaarios(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre_usuario TEXT NOT NULL UNIQUE,
     email TEXT NOT NULL UNIQUE,
-    password_hash TEXT NOT NULL,
+    password_hash TEXT NOT NULL
 );
 
 
