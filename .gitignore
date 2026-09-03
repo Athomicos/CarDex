@@ -1,0 +1,33 @@
+# --- PYTHON ---
+# Descargas de librerías y entorno virtual
+venv/
+.venv/
+env/
+# Archivos temporales de compilación de Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# --- JAVASCRIPT / NODE.JS (Si llegas a usar paquetes/frameworks) ---
+# Carpeta donde se descargan las librerías de JS
+node_modules/
+# Archivos generados en compilación/build
+dist/
+build/
+
+# --- BASES DE DATOS Y SQL ---
+# Ignora bases de datos locales para no subir datos reales o temporales
+*.db
+*.sqlite
+*.sqlite3
+*.log
+
+# --- CONFIGURACIÓN Y SECRETOS (Claves de API, contraseñas) ---
+.env
+.env.local
+
+# --- SISTEMA OPERATIVO Y EDITORES DE CÓDIGO ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
