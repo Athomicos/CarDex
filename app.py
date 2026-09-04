@@ -28,3 +28,42 @@ def after_request(response):
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
     return response
+
+
+@app.route("/")
+@login_required
+def index():
+    """Main menu"""
+    return apology("Nothing at the moment")
+
+
+@app.route("/add_car")
+@login_required
+def add_car():
+    """Add a car"""
+    return apology("Nothing at the moment")
+
+
+@app.route("/collection")
+@login_required
+def collection():
+    """Show user's collection"""
+    return apology("Nothing at the moment")
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    """Log user in"""
+    return apology("Nothing at the moment")
+
+
+@app.route("/logout")
+def logout():
+    """Log user out"""
+    return apology("Nothing at the moment")
+
+
+@app.route("/register")
+def register():
+    """Register user"""
+    return apology("Nothing at the moment")
