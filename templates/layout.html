@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CarDex{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <nav>
+        <a href="{{ url_for('index') }}">CarDex</a>
+        {% if session.get("user_id") %}
+            <a href="{{ url_for('collection') }}">Mi colección</a>
+            <a href="{{ url_for('add_car') }}">Añadir coche</a>
+            <a href="{{ url_for('logout') }}">Salir</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Registro</a>
+        {% endif %}
+    </nav>
+
+    {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+    {% endfor %}
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+</body>
+</html>
