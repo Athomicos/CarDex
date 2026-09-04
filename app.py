@@ -5,7 +5,7 @@ from flask import Flask
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, kmh, cv
+from helpers import apology, kmh, cv, login_required
 
 app = Flask(__name__)
 
