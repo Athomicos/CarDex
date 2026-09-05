@@ -1,7 +1,7 @@
 import os
 
 from cs50 import SQL
-from flask import Flask, redirect, render_template, session
+from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -66,4 +66,31 @@ def logout():
 @app.route("/register")
 def register():
     """Register user"""
-    return render_template("register.html")
+    if request.method == "POST":
+        name = request.form.get("username")
+        password = request.form.get("password")
+
+        if not name:
+            return apology("must provide username", 400)
+
+        if not password:
+            return apology("must provide password", 400)
+
+        if password != request.form.get("confirmation"):
+            return apology("passwords do not match", 400)
+
+        for username in db.execute("SELECT nombre_usuario FROM users"):
+            if username["nombre_usuario"] == name:
+                return apology("username already exists", 400)
+
+        hash = generate_password_hash(password)
+
+        try:
+            db.execute("INSERT INTO users (nombre_usuario, contrasena) VALUES (?, ?)", name, hash)
+            return redirect("/login")
+        except ValueError:
+            return apology("error registering user", 400)
+
+        
+    else:
+        return render_template("register.html")
