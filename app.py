@@ -53,7 +53,26 @@ def collection():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
-    return render_template("login.html")
+    session.clear()
+
+    if request.method == "POST":
+        if not request.form.get("username"):
+            return apology("must provide username", 400)
+
+        if not request.form.get("password"):
+            return apology("must provide password", 400)
+
+        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
+
+        if len(rows) != 1 or not check_password_hash(rows[0]["password_hash"], request.form.get("password")):
+            return apology("invalid username and/or password", 400)
+
+        session["user_id"] = rows[0]["id"]
+
+        return redirect("/")
+
+    else:
+        return render_template("login.html")
 
 
 @app.route("/logout")
