@@ -37,7 +37,7 @@ CREATE TABLE fotos (
     FOREIGN KEY (avistamiento_id) REFERENCES avistamientos(id)
 );
 
-# Add cars information
+-- Add cars information
 INSERT INTO coches (marca, modelo, version, año_inicio, año_fin, potencia_cv, motor, velocidad_maxima, otros_specs) VALUES
 ('Seat', 'León', '1.5 TSI FR', 2020, NULL, 150, '1.5L turbo gasolina', 216, 'FR es nivel deportivo, un escalón por debajo del Cupra'),
 ('Volkswagen', 'Golf 8', 'GTI', 2020, NULL, 245, '2.0 TSI turbo', 250, 'Primera GTI con perfiles de conducción digitales'),
