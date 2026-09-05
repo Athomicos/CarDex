@@ -80,13 +80,13 @@ def register():
             return apology("passwords do not match", 400)
 
         for username in db.execute("SELECT nombre_usuario FROM users"):
-            if username["nombre_usuario"] == name:
+            if username["nombre_usuario"].tolower() == name.tolower():
                 return apology("username already exists", 400)
 
         hash = generate_password_hash(password)
 
         try:
-            db.execute("INSERT INTO users (nombre_usuario, contrasena) VALUES (?, ?)", name, hash)
+            db.execute("INSERT INTO users (nombre_usuario, password_hash) VALUES (?, ?)", name, hash)
             return redirect("/login")
         except ValueError:
             return apology("error registering user", 400)
