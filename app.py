@@ -1,7 +1,7 @@
 import os
 
 from cs50 import SQL
-from flask import Flask
+from flask import Flask, redirect, render_template, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -31,39 +31,39 @@ def after_request(response):
 
 
 @app.route("/")
-@login_required
+# @login_required
 def index():
     """Main menu"""
-    return apology("Nothing at the moment")
+    return render_template("index.html")
 
 
 @app.route("/add_car")
-@login_required
+# @login_required
 def add_car():
     """Add a car"""
-    return apology("Nothing at the moment")
-
+    return render_template("add_car.html")
 
 @app.route("/collection")
-@login_required
+# @login_required
 def collection():
     """Show user's collection"""
-    return apology("Nothing at the moment")
+    return render_template("collection.html")
 
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
-    return apology("Nothing at the moment")
+    return render_template("login.html")
 
 
 @app.route("/logout")
 def logout():
     """Log user out"""
-    return apology("Nothing at the moment")
+    session.clear()
+    return redirect("/")
 
 
 @app.route("/register")
 def register():
     """Register user"""
-    return apology("Nothing at the moment")
+    return render_template("register.html")
