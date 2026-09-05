@@ -19,7 +19,7 @@ app.secret_key = os.urandom(24)
 Session(app)
 
 # Configure CS50 Library to use SQLite database
-db = SQL("sqlite:///carspot.db")
+db = SQL("sqlite:///cardex.db")
 
 @app.after_request
 def after_request(response):
@@ -63,12 +63,13 @@ def logout():
     return redirect("/")
 
 
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
     """Register user"""
     if request.method == "POST":
         name = request.form.get("username")
         password = request.form.get("password")
+        confirmation = request.form.get("confirmation")
 
         if not name:
             return apology("must provide username", 400)
@@ -76,19 +77,24 @@ def register():
         if not password:
             return apology("must provide password", 400)
 
-        if password != request.form.get("confirmation"):
+        if not confirmation:
+            return apology("must provide password confirmation", 400)
+
+        if password != confirmation:
             return apology("passwords do not match", 400)
 
         for username in db.execute("SELECT nombre_usuario FROM users"):
-            if username["nombre_usuario"].tolower() == name.tolower():
+            if username["nombre_usuario"].lower() == name.lower():
                 return apology("username already exists", 400)
 
         hash = generate_password_hash(password)
 
         try:
             db.execute("INSERT INTO users (nombre_usuario, password_hash) VALUES (?, ?)", name, hash)
+            print("Yippie")
             return redirect("/login")
-        except ValueError:
+        except ValueError as e:
+            print(e)
             return apology("error registering user", 400)
 
         
