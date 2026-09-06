@@ -1,8 +1,41 @@
 {% extends "layout.html" %}
+
 {% block title %}Añadir Coche{% endblock %}
+
 {% block content %}
-<div class="container mt-5">
-    <h1 class="mb-4">Añadir Coche</h1>
-    <p>Aquí irá el formulario (marca/modelo/versión/fotos) — Día 5.</p>
-</div>
+<form action="/add_car" method="post">
+    <div class="mb-3">
+        <label for="marca" class="form-label">Marca</label>
+        <select name="marca_id" id="marca" class="form-select" required>
+            <option value="" selected disabled>Selecciona una marca</option>
+            {% for brand in brands %}
+                <option value="{{ brand.id }}">{{ brand.brand }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="modelo" class="form-label">Modelo</label>
+        <select name="modelo_id" id="modelo" class="form-select" required disabled>
+            <option value="" selected disabled>Primero elige una marca</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="version" class="form-label">Versión</label>
+        <select name="version_id" id="version" class="form-select" required disabled>
+            <option value="" selected disabled>Primero elige un modelo</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="ubicacion" class="form-label">Dónde lo has visto</label>
+        <input type="text" name="ubicacion" id="ubicacion" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar avistamiento</button>
+
+    <script src="/static/js/script.js"></script>
+{% endblock %}
+</form>
 {% endblock %}
