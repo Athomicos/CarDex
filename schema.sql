@@ -58,3 +58,6 @@ INSERT INTO cars (brand, model, version, year_start, year_end, horsepower, engin
 ('Volvo', 'XC40', 'R-Design', 2018, NULL, 190, '2.0L turbo gasoline (T4)', 200, 'XC40 Recharge fully electric shares the same name'),
 ('Mini', 'Cooper', 'S', 2014, 2024, 178, '2.0L turbo gasoline', 235, 'F5x generation, replaced in 2024'),
 ('Skoda', 'Octavia', 'RS', 2020, NULL, 245, '2.0 TSI turbo gasoline', 250, 'RS diesel (200hp/232km/h) also exists -- gasoline chosen as reference');
+
+INSERT INTO cars (brand, model, version, year_start, year_end, horsepower, engine, top_speed, other_specs) VALUES
+('Seat', 'Alhambra', '2.0 TDI Style', 2015, NULL, 150, '2.0L diesel turbo', 199.0, 'Popular 7-seat MPV, shares platform with VW Sharan');

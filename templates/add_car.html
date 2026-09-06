@@ -9,7 +9,7 @@
         <select name="marca_id" id="marca" class="form-select" required>
             <option value="" selected disabled>Selecciona una marca</option>
             {% for brand in brands %}
-                <option value="{{ brand.id }}">{{ brand.brand }}</option>
+                <option value="{{ brand.brand }}">{{ brand.brand }}</option>
             {% endfor %}
         </select>
     </div>
