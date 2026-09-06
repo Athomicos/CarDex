@@ -1,3 +1,4 @@
+import datetime
 import os
 
 from cs50 import SQL
@@ -37,15 +38,33 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/add_car")
+@app.route("/add_car", methods=["GET", "POST"])
 @login_required
 def add_car():
     """Add a car"""
     if request.method == "POST":
-        pass
+        id = request.form.get("version_id")
+
+        if not id:
+            return apology("must provide a car version", 400)
+
+        existing = db.execute("SELECT * FROM sightings WHERE user_id = ? AND car_id = ?", session["user_id"], id)
+
+        if existing:
+            return apology("you already have this car in your collection", 400)
+
+        if not db.execute("SELECT * FROM cars WHERE id = ?", id):
+            return apology("invalid car version", 400)
+        
+        location = request.form.get("ubicacion")
+        date = datetime.now()
+
+        db.execute("INSERT INTO sightings (user_id, car_id, date, location) VALUES (?, ?, ?, ?)", session["user_id"], id, date, location)
+
+        return redirect("/")
 
     else:
-        brands = db.execute("SELECT * FROM cars ORDER BY brand ASC")
+        brands = db.execute("SELECT DISTINCT brand FROM cars ORDER BY brand ASC")
         return render_template("add_car.html", brands=brands)
 
 @app.route("/collection")
