@@ -33,8 +33,28 @@
         <input type="text" name="ubicacion" id="ubicacion" class="form-control">
     </div>
 
+    <form action="/add_car" method="post" enctype="multipart/form-data">
+
+    <!-- ... tus 3 selects y el input de ubicación ya existentes ... -->
+
+    <div class="mb-3">
+        <label for="fotos" class="form-label">Fotos (máximo 5)</label>
+        <input
+            type="file"
+            id="fotos"
+            name="fotos"
+            accept="image/*"
+            multiple
+            class="form-control"
+        >
+        <div class="form-text">Puedes seleccionar hasta 5 fotos.</div>
+    </div>
+
     <button type="submit" class="btn btn-primary">Guardar avistamiento</button>
+</form>
 
     <script src="/static/js/script.js"></script>
+
+    
 </form>
 {% endblock %}
