@@ -1,7 +1,7 @@
 import os
 
 from cs50 import SQL
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, jsonify, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -31,20 +31,25 @@ def after_request(response):
 
 
 @app.route("/")
-# @login_required
+@login_required
 def index():
     """Main menu"""
     return render_template("index.html")
 
 
 @app.route("/add_car")
-# @login_required
+@login_required
 def add_car():
     """Add a car"""
-    return render_template("add_car.html")
+    if request.method == "POST":
+        pass
+
+    else:
+        brands = db.execute("SELECT * FROM cars ORDER BY brand ASC")
+        return render_template("add_car.html", brands=brands)
 
 @app.route("/collection")
-# @login_required
+@login_required
 def collection():
     """Show user's collection"""
     return render_template("collection.html")
@@ -119,3 +124,17 @@ def register():
         
     else:
         return render_template("register.html")
+
+
+@app.route("/models/<brand>")
+@login_required
+def models(brand):
+    modelos = db.execute("SELECT DISTINCT model FROM cars WHERE brand = ?", brand)
+    return jsonify(modelos)
+
+
+@app.route("/versions/<brand>/<model>")
+@login_required
+def versions(brand, model):
+    versions = db.execute("SELECT id, version FROM cars WHERE brand = ? AND model = ? AND id NOT IN (SELECT car_id FROM sightings WHERE user_id = ?)", brand, model, session["user_id"])
+    return jsonify(versions)
