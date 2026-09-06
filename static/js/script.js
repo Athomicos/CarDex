@@ -1,8 +1,8 @@
-document.getElementById("marca").addEventListener("change", function() {
+document.getElementById("marca").addEventListener("change", async function() {
 
     const brand = this.value;
 
-    const respuesta = await fetch('/models/${brand}');
+    const respuesta = await fetch(`/models/${encodeURIComponent(brand)}`);
     const modelos = await respuesta.json();
 
     const selectModelo = document.getElementById("modelo");
@@ -21,7 +21,7 @@ document.getElementById("modelo").addEventListener("change", async function() {
     const brand = document.getElementById("marca").value;
     const model = this.value;
 
-    const respuesta = await fetch('/versions/${brand}/${model}');
+    const respuesta = await fetch(`/versions/${encodeURIComponent(brand)}/${encodeURIComponent(model)}`);
     const versions = await respuesta.json();
 
     const selectVersion = document.getElementById("version");
