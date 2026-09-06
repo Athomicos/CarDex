@@ -57,7 +57,7 @@ def add_car():
             return apology("invalid car version", 400)
         
         location = request.form.get("ubicacion")
-        date = datetime.now()
+        date = datetime.date.today()
 
         db.execute("INSERT INTO sightings (user_id, car_id, date, location) VALUES (?, ?, ?, ?)", session["user_id"], id, date, location)
 
