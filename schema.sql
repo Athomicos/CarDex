@@ -24,16 +24,10 @@ CREATE TABLE sightings (
     car_id INTEGER NOT NULL,
     date DATETIME,
     location TEXT,
+    photo_path TEXT,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (car_id) REFERENCES cars(id),
     UNIQUE (user_id, car_id)
-);
-
-CREATE TABLE photos (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    sighting_id INTEGER NOT NULL,
-    photo_path TEXT NOT NULL,
-    FOREIGN KEY (sighting_id) REFERENCES sightings(id)
 );
 
 -- Add cars information
