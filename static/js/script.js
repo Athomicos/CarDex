@@ -43,3 +43,13 @@ document.getElementById("modelo").addEventListener("change", async function() {
     }
     selectVersion.disabled = false;
 });
+
+document.querySelector("form").addEventListener("submit", function (e) {
+    const fotoInput = document.getElementById("foto");
+    if (fotoInput.files.length === 0) {
+        const continuar = confirm("There's no photo selected. Do you want to continue without uploading a photo?");
+        if (!continuar) {
+            e.preventDefault();
+        }
+    }
+});
