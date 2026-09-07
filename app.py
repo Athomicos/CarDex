@@ -1,5 +1,7 @@
 import datetime
 import os
+from tkinter import Image
+import uuid
 
 from cs50 import SQL
 from flask import Flask, jsonify, redirect, render_template, request, session
@@ -18,6 +20,11 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 app.secret_key = os.urandom(24)
 Session(app)
+
+# Config for upload photos
+app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024  # 10 MB limit
+UPLOAD_FOLDER = "static/uploads"
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///cardex.db")
@@ -157,3 +164,25 @@ def models(brand):
 def versions(brand, model):
     versions = db.execute("SELECT id, version FROM cars WHERE brand = ? AND model = ? AND id NOT IN (SELECT car_id FROM sightings WHERE user_id = ?)", brand, model, session["user_id"])
     return jsonify(versions)
+
+
+def save_photo(photo):
+    """Save uploaded photo and return the file path."""
+    if not photo or photo.filename == "":
+        return None
+
+    try:
+        img = Image.open(photo)
+        img.verify()  # Verify that it's an image
+    except Exception:
+        return "ERROR"
+
+    photo.seek(0)
+    img = Image.open(photo)
+    img.thumbnail((1024, 1024))  # Resize to a maximum of 1024x1024
+
+    name = f"{uuid.uuid4().hex}.jpg"
+    path = os.path.join(UPLOAD_FOLDER, name)
+    img.convert("RGB").save(path, "JPEG", quality=85)  # Save as JPEG
+
+    return path
