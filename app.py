@@ -1,6 +1,6 @@
 import datetime
 import os
-from tkinter import Image
+from PIL import Image
 import uuid
 
 from cs50 import SQL
@@ -181,7 +181,8 @@ def save_photo(photo):
     try:
         img = Image.open(photo)
         img.verify()  # Verify that it's an image
-    except Exception:
+    except Exception as e:
+        print(f"DEBUG - foto falló: {e}")
         return "ERROR"
 
     photo.seek(0)
