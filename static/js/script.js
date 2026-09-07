@@ -45,7 +45,7 @@ document.getElementById("modelo").addEventListener("change", async function() {
 });
 
 document.querySelector("form").addEventListener("submit", function (e) {
-    const fotoInput = document.getElementById("foto");
+    const fotoInput = document.getElementById("fotos");
     if (fotoInput.files.length === 0) {
         const continuar = confirm("There's no photo selected. Do you want to continue without uploading a photo?");
         if (!continuar) {
