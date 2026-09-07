@@ -31,8 +31,8 @@ flask_session/
 
 # --- FOTOS SUBIDAS POR USUARIOS ---
 # Ignora el contenido pero mantiene la carpeta versionada (.gitkeep)
-uploads/*
-!uploads/.gitkeep
+uploads/uploads/*
+!uploads/uploads/.gitkeep
 
 # --- CONFIGURACIÓN Y SECRETOS (Claves de API, contraseñas) ---
 .env
