@@ -66,7 +66,14 @@ def add_car():
         location = request.form.get("ubicacion")
         date = datetime.date.today()
 
-        db.execute("INSERT INTO sightings (user_id, car_id, date, location) VALUES (?, ?, ?, ?)", session["user_id"], id, date, location)
+        photo = request.files.get("fotos")
+        photo_path = save_photo(photo)
+
+        if photo_path == "ERROR":
+            return apology("invalid photo format", 400)
+
+        db.execute("""INSERT INTO sightings (user_id, car_id, date, location, photo_path) 
+                   VALUES (?, ?, ?, ?, ?)""", session["user_id"], id, date, location, photo_path)
 
         return redirect("/")
 
