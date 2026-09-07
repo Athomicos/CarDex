@@ -3,13 +3,13 @@
 {% block title %}Añadir Coche{% endblock %}
 
 {% block content %}
-<form action="/add_car" method="post">
+<form action="/add_car" method="post" enctype="multipart/form-data">
     <div class="mb-3">
         <label for="marca" class="form-label">Marca</label>
         <select name="marca_id" id="marca" class="form-select" required>
             <option value="" selected disabled>Selecciona una marca</option>
             {% for brand in brands %}
-                <option value="{{ brand.brand }}">{{ brand.brand }}</option>
+            <option value="{{ brand.brand }}">{{ brand.brand }}</option>
             {% endfor %}
         </select>
     </div>
@@ -33,10 +33,6 @@
         <input type="text" name="ubicacion" id="ubicacion" class="form-control">
     </div>
 
-    <form action="/add_car" method="post" enctype="multipart/form-data">
-
-    <!-- ... tus 3 selects y el input de ubicación ya existentes ... -->
-
     <div class="mb-3">
         <label for="fotos" class="form-label">Foto</label>
         <input
@@ -44,10 +40,9 @@
             id="fotos"
             name="fotos"
             accept="image/*"
-            multiple
             class="form-control"
         >
-        <div class="form-text">Seleccióne 1 foto</div>
+        <div class="form-text">Selecciona 1 foto</div>
     </div>
 
     <button type="submit" class="btn btn-primary">Guardar avistamiento</button>
@@ -55,6 +50,4 @@
 
     <script src="/static/js/script.js"></script>
 
-    
-</form>
 {% endblock %}
