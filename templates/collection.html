@@ -5,26 +5,30 @@
     <h1 class="mb-4">Mi Colección</h1>
 
     <div class="row">
-        {% for car in user_cars %}
-            <div class="col-12 col-md-6">
-                <a href="/car/{{ car.id }}" class="text-decoration-none text-dark">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
-                            <p class="card-text">Versión: {{ car.version }}</p>
+        {% if not user_cars %}
+            <p class="lead">No tienes coches en tu colección.</p>
+        {% else %}
+            {% for car in user_cars %}
+                <div class="col-12 col-md-6">
+                    <a href="/car/{{ car.id }}" class="text-decoration-none text-dark">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
+                                <p class="card-text">Versión: {{ car.version }}</p>
 
-                            {% if car.photo_path %}
-                            <img src="{{ car.photo_path }}"
-                                class="card-img-top" alt="Foto del coche">
-                            {% else %}
-                            <img src="{{ url_for('static', filename='uploads/no-car.jpg') }}"
-                                class="card-img-top" alt="Sin foto">
-                            {% endif %}
+                                {% if car.photo_path %}
+                                    <img src="{{ car.photo_path }}"
+                                        class="card-img-top" alt="Foto del coche">
+                                {% else %}
+                                    <img src="{{ url_for('static', filename='uploads/no-car.jpg') }}"
+                                        class="card-img-top" alt="Sin foto">
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-        {% endfor %}
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 
 </div>
