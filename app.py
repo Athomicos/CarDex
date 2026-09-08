@@ -85,8 +85,21 @@ def add_car():
 @login_required
 def collection():
     """Show user's collection"""
-    return render_template("collection.html")
+    user_id = session["user_id"]
 
+    user_cars = db.execute("""
+        SELECT
+            cars.*,
+            sightings.photo_path,
+            sightings.date,
+            sightings.location
+        FROM cars
+        JOIN sightings ON cars.id = sightings.car_id
+        WHERE sightings.user_id = ?
+    """, user_id)
+
+    print(f"Foto guardada: {user_cars[0]['photo_path']}" if user_cars else "No cars found")
+    return render_template("collection.html", user_cars=user_cars)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():

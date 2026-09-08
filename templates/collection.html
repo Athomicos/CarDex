@@ -5,4 +5,21 @@
     <h1 class="mb-4">Mi Colección</h1>
     <p>Aquí irán las tarjetas de los coches.</p>
 </div>
+{% for car in user_cars %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
+            <p class="card-text">Versión: {{ car.version }}</p>
+
+            {% if car.photo_path %}
+            <img src="{{ car.photo_path }}" 
+                class="card-img-top" alt="Foto del coche" style="max-height: 200px; object-fit: cover;">
+            
+            {% else %}
+                <img src="{{ url_for('static', filename='img/no-car.png') }}"
+                    class="card-img-top" alt="Sin foto" style="max-height: 200px; object-fit: cover;">
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
 {% endblock %}
