@@ -1,6 +1,6 @@
 import datetime
 import os
-from PIL import Image
+from PIL import Image, ImageOps
 import uuid
 
 from cs50 import SQL
@@ -200,6 +200,7 @@ def save_photo(photo):
 
     photo.seek(0)
     img = Image.open(photo)
+    img = ImageOps.exif_transpose(img)  # Correct orientation based on EXIF data
     img.thumbnail((1024, 1024))  # Resize to a maximum of 1024x1024
 
     name = f"{uuid.uuid4().hex}.jpg"
