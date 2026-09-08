@@ -95,7 +95,7 @@ def collection():
             sightings.location
         FROM cars
         JOIN sightings ON cars.id = sightings.car_id
-        WHERE sightings.user_id = ?
+        WHERE sightings.user_id = ? ORDER BY sightings.date DESC
     """, user_id)
 
     print(f"Foto guardada: {user_cars[0]['photo_path']}" if user_cars else "No cars found")
@@ -208,3 +208,14 @@ def save_photo(photo):
     img.convert("RGB").save(path, "JPEG", quality=85)  # Save as JPEG
 
     return path
+
+
+@app.route("/car/<id>")
+@login_required
+def car_detail(id):
+    car_info = db.execute("SELECT cars.*, sightings.photo_path, sightings.location, sightings.date FROM cars LEFT JOIN sightings ON cars.id = sightings.car_id WHERE cars.id = ? AND cars.id IN (SELECT car_id FROM sightings WHERE user_id = ?)", id, session["user_id"])
+
+    if not car_info:
+        return apology("car not found in your collection", 404)
+
+    return render_template("car_detail.html", car=car_info[0])
