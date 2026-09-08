@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+{% block title %}{{ car.brand }} {{ car.model }}{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <a href="/collection" class="btn btn-sm btn-outline-secondary mb-3">&larr; Volver</a>
+
+    <div class="row">
+        <div class="col-md-6">
+            {% if car.photo_path %}
+            <img src="/{{ car.photo_path }}" class="img-fluid rounded" alt="Foto del coche">
+            {% else %}
+            <img src="{{ url_for('static', filename='uploads/no-car.jpg') }}" class="img-fluid rounded" alt="Sin foto">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h2>{{ car.brand }} {{ car.model }}</h2>
+            <h5 class="text-muted">{{ car.version }}</h5>
+            <ul class="list-unstyled mt-3">
+                <li><strong>Años:</strong> {{ car.year_start }}{% if car.year_end %} – {{ car.year_end }}{% endif %}</li>
+                <li><strong>Potencia:</strong> {{ car.horsepower }} cv</li>
+                <li><strong>Motor:</strong> {{ car.engine }}</li>
+                <li><strong>Velocidad máxima:</strong> {{ car.top_speed }} km/h</li>
+                {% if car.other_specs %}<li><strong>Otros:</strong> {{ car.other_specs }}</li>{% endif %}
+            </ul>
+            <hr>
+            <p><strong>Ubicación del avistamiento:</strong> {{ car.location or "No especificada" }}</p>
+            <p><strong>Fecha:</strong> {{ car.date or "No registrada" }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
