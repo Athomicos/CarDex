@@ -1,7 +1,10 @@
 import requests
 
+from cs50 import SQL
 from flask import redirect, render_template, session
 from functools import wraps
+
+db = SQL("sqlite:///cardex.db")
 
 def apology(message, code=400):
     """Render message as an apology to user."""
@@ -33,3 +36,18 @@ def login_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
+
+def get_user_collection(user_id):
+    user_cars = db.execute("""
+            SELECT
+                cars.*,
+                sightings.photo_path,
+                sightings.date,
+                sightings.location
+            FROM cars
+            JOIN sightings ON cars.id = sightings.car_id
+            WHERE sightings.user_id = ? ORDER BY sightings.date DESC
+        """, user_id)
+
+    return user_cars

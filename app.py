@@ -8,7 +8,7 @@ from flask import Flask, jsonify, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, kmh, cv, login_required
+from helpers import apology, kmh, cv, login_required, get_user_collection
 
 app = Flask(__name__)
 
@@ -87,16 +87,7 @@ def collection():
     """Show user's collection"""
     user_id = session["user_id"]
 
-    user_cars = db.execute("""
-        SELECT
-            cars.*,
-            sightings.photo_path,
-            sightings.date,
-            sightings.location
-        FROM cars
-        JOIN sightings ON cars.id = sightings.car_id
-        WHERE sightings.user_id = ? ORDER BY sightings.date DESC
-    """, user_id)
+    user_cars = get_user_collection(user_id)
 
     print(f"Foto guardada: {user_cars[0]['photo_path']}" if user_cars else "No cars found")
     return render_template("collection.html", user_cars=user_cars)
@@ -219,3 +210,13 @@ def car_detail(id):
         return apology("car not found in your collection", 404)
 
     return render_template("car_detail.html", car=car_info[0])
+
+
+@app.route("/search_car")
+@login_required
+def search_car():
+    user_id = session["user_id"]
+    
+    user_cars = get_user_collection(user_id)
+
+    return render_template("search_car.html", user_cars=user_cars)

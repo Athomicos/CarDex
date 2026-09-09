@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search Car
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+
+        <div class="mb-4">
+            <input
+                type="text"
+                id="search-input"
+                class="form-control"
+                placeholder="Busca por marca, modelo o versión..."
+                autocomplete="off"
+            >
+        </div>
+
+        <div id="empty-state" class="text-center text-muted d-none">
+            No se encontraron coches.
+        </div>
+
+        <div class="row" id="car-grid">
+            {% for car in user_cars %}
+                <div class="col-md-4 mb-4 car-card"
+                     data-search="{{ car.brand|lower }} {{ car.model|lower }} {{ car.version|lower }}">
+                    <a href="/car/{{ car.id }}" class="text-decoration-none text-dark">
+                        <div class="card h-100">
+                            {% if car.photo_path %}
+                                <img src="{{ car.photo_path }}" class="card-img-top" alt="{{ car.model }}">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
+                                <p class="card-text">{{ car.version }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const cards = document.querySelectorAll('.car-card');
+        const emptyState = document.getElementById('empty-state');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.trim().toLowerCase();
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const matches = card.dataset.search.includes(query);
+                card.classList.toggle('d-none', !matches);
+                if (matches) visibleCount++;
+            });
+
+            emptyState.classList.toggle('d-none', visibleCount !== 0);
+        });
+    </script>
+{% endblock %}
