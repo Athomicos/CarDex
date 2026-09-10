@@ -204,7 +204,16 @@ def save_photo(photo):
 @app.route("/car/<id>")
 @login_required
 def car_detail(id):
-    car_info = db.execute("SELECT cars.*, sightings.photo_path, sightings.location, sightings.date FROM cars LEFT JOIN sightings ON cars.id = sightings.car_id WHERE cars.id = ? AND cars.id IN (SELECT car_id FROM sightings WHERE user_id = ?)", id, session["user_id"])
+    car_info = db.execute("""
+        SELECT
+            cars.*,
+            sightings.photo_path,
+            sightings.date,
+            sightings.location
+        FROM cars
+        JOIN sightings ON cars.id = sightings.car_id
+        WHERE sightings.user_id = ? AND cars.id = ?
+    """, session["user_id"], id)
 
     if not car_info:
         return apology("car not found in your collection", 404)
