@@ -58,7 +58,7 @@ def add_car():
         existing = db.execute("SELECT * FROM sightings WHERE user_id = ? AND car_id = ?", session["user_id"], id)
 
         if existing:
-            return apology("you already have this car in your collection", 400)
+            return apology("you already have this car in your collection", 409)
 
         if not db.execute("SELECT * FROM cars WHERE id = ?", id):
             return apology("invalid car version", 400)
@@ -89,7 +89,6 @@ def collection():
 
     user_cars = get_user_collection(user_id)
 
-    print(f"Foto guardada: {user_cars[0]['photo_path']}" if user_cars else "No cars found")
     return render_template("collection.html", user_cars=user_cars)
 
 @app.route("/login", methods=["GET", "POST"])
@@ -107,7 +106,7 @@ def login():
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
         if len(rows) != 1 or not check_password_hash(rows[0]["password_hash"], request.form.get("password")):
-            return apology("invalid username and/or password", 400)
+            return apology("invalid username and/or password", 403)
 
         session["user_id"] = rows[0]["id"]
 
@@ -146,17 +145,15 @@ def register():
 
         for username in db.execute("SELECT username FROM users"):
             if username["username"].lower() == name.lower():
-                return apology("username already exists", 400)
+                return apology("username already exists", 409)
 
         hash = generate_password_hash(password)
 
         try:
             db.execute("INSERT INTO users (username, password_hash) VALUES (?, ?)", name, hash)
-            print("Yippie")
             return redirect("/login")
-        except ValueError as e:
-            print(e)
-            return apology("error registering user", 400)
+        except ValueError or RuntimeError:
+            return apology("error registering user", 404)
 
         
     else:
@@ -186,7 +183,6 @@ def save_photo(photo):
         img = Image.open(photo)
         img.verify()  # Verify that it's an image
     except Exception as e:
-        print(f"DEBUG - foto falló: {e}")
         return "ERROR"
 
     photo.seek(0)
