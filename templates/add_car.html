@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 
-{% block title %}Añadir Coche{% endblock %}
+{% block title %}Add Car{% endblock %}
 
 {% block content %}
 <form action="/add_car" method="post" enctype="multipart/form-data">
     <div class="mb-3">
-        <label for="marca" class="form-label">Marca</label>
+        <label for="marca" class="form-label">Brand</label>
         <select name="marca_id" id="marca" class="form-select" required>
-            <option value="" selected disabled>Selecciona una marca</option>
+            <option value="" selected disabled>Select a brand</option>
             {% for brand in brands %}
             <option value="{{ brand.brand }}">{{ brand.brand }}</option>
             {% endfor %}
@@ -15,26 +15,26 @@
     </div>
 
     <div class="mb-3">
-        <label for="modelo" class="form-label">Modelo</label>
+        <label for="modelo" class="form-label">Model</label>
         <select name="modelo_id" id="modelo" class="form-select" required disabled>
-            <option value="" selected disabled>Primero elige una marca</option>
+            <option value="" selected disabled>First select a brand</option>
         </select>
     </div>
 
     <div class="mb-3">
-        <label for="version" class="form-label">Versión</label>
+        <label for="version" class="form-label">Version</label>
         <select name="version_id" id="version" class="form-select" required disabled>
-            <option value="" selected disabled>Primero elige un modelo</option>
+            <option value="" selected disabled>First select a model</option>
         </select>
     </div>
 
     <div class="mb-3">
-        <label for="ubicacion" class="form-label">Dónde lo has visto</label>
+        <label for="ubicacion" class="form-label">Where you saw it</label>
         <input type="text" name="ubicacion" id="ubicacion" class="form-control">
     </div>
 
     <div class="mb-3">
-        <label for="fotos" class="form-label">Foto</label>
+        <label for="fotos" class="form-label">Photo</label>
         <input
             type="file"
             id="fotos"
@@ -42,10 +42,10 @@
             accept="image/*"
             class="form-control"
         >
-        <div class="form-text">Selecciona 1 foto</div>
+        <div class="form-text">Select 1 photo</div>
     </div>
 
-    <button type="submit" class="btn btn-primary">Guardar avistamiento</button>
+    <button type="submit" class="btn btn-primary">Save sighting</button>
 </form>
 
     <script src="/static/js/script.js"></script>

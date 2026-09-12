@@ -2,11 +2,11 @@
 {% block title %}Mi Colección{% endblock %}
 {% block content %}
 <div class="container mt-5">
-    <h1 class="mb-4">Mi Colección</h1>
+    <h1 class="mb-4">My Collection</h1>
 
     <div class="row">
         {% if not user_cars %}
-            <p class="lead">No tienes coches en tu colección.</p>
+            <p class="lead">You don't have any cars in your collection.</p>
         {% else %}
             {% for car in user_cars %}
                 <div class="col-12 col-md-6">
@@ -14,7 +14,7 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
-                                <p class="card-text">Versión: {{ car.version }}</p>
+                                <p class="card-text">Version: {{ car.version }}</p>
 
                                 {% if car.photo_path %}
                                     <img src="{{ car.photo_path }}"

@@ -18,7 +18,7 @@
         </div>
 
         <div id="empty-state" class="text-center text-muted d-none">
-            No se encontraron coches.
+            There are no cars matching your search. Try a different query.
         </div>
 
         <div class="row" id="car-grid">
@@ -30,7 +30,7 @@
                             {% if car.photo_path %}
                                 <img src="{{ car.photo_path }}" class="card-img-top" alt="{{ car.model }}">
                             {% else %}
-                                <img src="{{ url_for('static', filename='uploads/no-car.jpg') }}" class="img-fluid rounded" alt="Sin foto">
+                                <img src="{{ url_for('static', filename='uploads/no-car.jpg') }}" class="img-fluid rounded" alt="No photo">
                             {% endif %}
                             <div class="card-body">
                                 <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
