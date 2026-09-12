@@ -29,6 +29,8 @@
                         <div class="card h-100">
                             {% if car.photo_path %}
                                 <img src="{{ car.photo_path }}" class="card-img-top" alt="{{ car.model }}">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='uploads/no-car.jpg') }}" class="img-fluid rounded" alt="Sin foto">
                             {% endif %}
                             <div class="card-body">
                                 <h5 class="card-title">{{ car.brand }} {{ car.model }}</h5>
