@@ -38,11 +38,9 @@ document.getElementById("modelo").addEventListener("change", async function() {
 
     const brand = document.getElementById("marca").value;
     const model = this.value;
-    console.log("brand:", brand, "model:", model);
 
     const respuesta = await fetch(`/versions/${encodeURIComponent(brand)}/${encodeURIComponent(model)}`);
     const versions = await respuesta.json();
-    console.log("versiones recibidas:", versions);
 
     const selectVersion = document.getElementById("version");
     selectVersion.innerHTML = "";
