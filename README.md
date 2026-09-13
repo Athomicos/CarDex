@@ -22,11 +22,3 @@ A web app for cataloguing real cars you've spotted in person — on the street, 
 ## Catalog
 
 The catalog was built and curated by hand rather than scraped — an initial scraping attempt was blocked by the source site, so the car data (brand, model, version, years, horsepower, engine, top speed) was entered and verified manually instead.
-
-<!--
-Optional section — only keep this if the PWA (manifest.json + service worker) actually ships.
-Delete it otherwise; claiming installability you didn't build undermines the rest of the README.
-
-## Installable as an app
-CarDex can be installed to your phone's home screen and opens full-screen, like a native app.
--->
