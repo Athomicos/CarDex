@@ -11,6 +11,7 @@ MarkupSafe==3.0.3
 msgspec==0.21.1
 packaging==26.3
 pillow==12.3.0
+requests==2.34.0
 SQLAlchemy==2.0.52
 sqlparse==0.6.0
 termcolor==3.3.0
