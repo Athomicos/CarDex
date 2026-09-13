@@ -163,3 +163,9 @@ INSERT INTO cars (brand, model, version, year_start, year_end, horsepower, engin
 ('Rolls-Royce', 'Wraith', 'Base', 2013, 2023, 624, '6.6L Twin-Turbo V12', 250, 'RWD, limitada electrónicamente'),
 ('Maserati', 'Ghibli', 'Trofeo', 2020, NULL, 580, '3.8L Twin-Turbo V8', 326, 'RWD'),
 ('Maserati', 'GranTurismo', 'MC Stradale', 2010, 2016, 450, '4.7L V8 NA', 303, 'RWD');
+
+-- Add Volswagen Beetle for that person
+INSERT INTO cars (brand, model, version, year_start, year_end, horsepower, engine, top_speed, other_specs)
+VALUES
+  ('Volkswagen', 'New Beetle', '2.0 Highline', 1998, 2005, 115, '2.0L I4 8v', 185, '0-100 km/h en 10.9s, FWD, manual'),
+  ('Volkswagen', 'New Beetle', 'Read Head', 2001, 2002, 224, '3.2L VR6 24v', 225, '0-100 km/h en 6.7s, AWD, edición limitada a 250 unidades');
